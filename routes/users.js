@@ -6,6 +6,9 @@ const sequelize = require('../models/index.js').sequelize;
 var initModels = require("../models/init-models");
 var models = initModels(sequelize);
 
+var cookieParser = require('cookie-parser');
+router.use(cookieParser());
+
 /* 1. Importe el módulo crypto */
 let crypto = require('crypto');
 
@@ -34,8 +37,12 @@ router.get('/', async function (req, res, next) {
   
   let rolesCollection = await models.roles.findAll({ })
   /* 4. Paso de parámetros a la vista */
-  res.render('crud', { title: 'CRUD of users', usersArray: usersCollection, rolesArray: rolesCollection   });
-
+  res.render('crud', {
+    title: 'CRUD of users',
+    usersArray: usersCollection,
+    rolesArray: rolesCollection,
+    username: req.cookies['username']  // Agregar la cookie username a los parámetros
+  });
 });
 
 
