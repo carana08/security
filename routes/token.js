@@ -9,7 +9,7 @@ var jwt = require('jsonwebtoken');
 /* GET /token page. */
 router.get('/', async function(req, res, next) {
     const username = req.cookies['username'];
-    const token = jwt.sign({ username: username }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ username: username }, process.env.JWT_SECRET ,{ expiresIn: '1h' });
   
     res.render('ticket', {
       title: 'Your JWT Token',
