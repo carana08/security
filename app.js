@@ -36,17 +36,16 @@ app.use(session({
 }));
 
 
- /* 2. Agregue el middleware al router */
- app.use('/users', authenticateSession, authorizationSession, usersRouter);
- app.use('/token', authenticateSession, authorizationSession, tokenRouter);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(cookieParser());
 app.use('/', indexRouter);
-app.use('/token', tokenRouter);
-app.use('/users', usersRouter);
+ /* 2. Agregue el middleware al router */
+ app.use('/users', authenticateSession, authorizationSession, usersRouter);
+ app.use('/token', authenticateSession, authorizationSession, tokenRouter);
 
 // app.use(cookieParser());
 // catch 404 and forward to error handler

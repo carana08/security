@@ -1,15 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-var cookieParser = require('cookie-parser');
-router.use(cookieParser());
-
 var jwt = require('jsonwebtoken');
 
 /* GET /token page. */
-router.get('/', async function(req, res, next) {
-    const username = req.cookies['username'];
-    const token = jwt.sign({ username: username }, process.env.JWT_SECRET ,{ expiresIn: '1h' });
+router.get('/', function(req, res, next) {
+    const token = jwt.sign({ role: 'user' }, process.env.JWT_SECRET ,{ expiresIn: '1h' });
   
     res.render('ticket', {
       title: 'Your JWT Token',
